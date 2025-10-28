@@ -290,14 +290,18 @@ footer{
 </div>
 
 <section class="parking-container">
+    <!-- חניון 1 -->
     <div class="parking" data-city="תל אביב">
-        <div class="image-area" style="background-image:url('https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1000&q=80');"></div>
+        <div class="image-area" style="background-image:url('https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1000&q=80');">
+            <div class="overlay"></div>
+        </div>
         <div class="parking-content">
             <h3>חניון דיזנגוף – תל אביב</h3>
             <div class="info">
                 <p><strong>עלות:</strong> ₪35 לשעה</p>
                 <p><strong>קיבולת:</strong> 200</p>
                 <p><strong>תפוסה:</strong> <span class="live-count" data-max="200">120</span></p>
+                <p><strong>שעות פתיחה:</strong> 24/7</p>
             </div>
             <button class="btn" onclick="toggleMap('map1')">📍 מיקום</button>
             <button class="btn" onclick="showLot('lot1',200)">🅿️ מפת חניון</button>
@@ -307,7 +311,53 @@ footer{
         </div>
         <div id="lot1" class="lot-map"></div>
     </div>
+    <!-- חניון 2 -->
+    <div class="parking" data-city="ירושלים">
+        <div class="image-area" style="background-image:url('https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=1000&q=80');">
+            <div class="overlay"></div>
+        </div>
+        <div class="parking-content">
+            <h3>חניון ממילא – ירושלים</h3>
+            <div class="info">
+                <p><strong>עלות:</strong> ₪30 לשעה</p>
+                <p><strong>קיבולת:</strong> 150</p>
+                <p><strong>תפוסה:</strong> <span class="live-count" data-max="150">95</span></p>
+                <p><strong>שעות פתיחה:</strong> 06:00–00:00</p>
+            </div>
+            <button class="btn" onclick="toggleMap('map2')">📍 מיקום</button>
+            <button class="btn" onclick="showLot('lot2',150)">🅿️ מפת חניון</button>
+        </div>
+        <div id="map2" class="map-container">
+            <iframe src="https://www.google.com/maps?q=31.7784,35.2227&output=embed"></iframe>
+        </div>
+        <div id="lot2" class="lot-map"></div>
+    </div>
+    <!-- חניון 3 -->
+    <div class="parking" data-city="חיפה
+    <!-- חניון 3 -->
+    <div class="parking" data-city="חיפה">
+        <div class="image-area" style="background-image:url('https://images.unsplash.com/photo-1597001278256-5a5f9f77cb2b?auto=format&fit=crop&w=1000&q=80');">
+            <div class="overlay"></div>
+        </div>
+        <div class="parking-content">
+            <h3>חניון גרנד קניון – חיפה</h3>
+            <div class="info">
+                <p><strong>עלות:</strong> ₪28 לשעה</p>
+                <p><strong>קיבולת:</strong> 180</p>
+                <p><strong>תפוסה:</strong> <span class="live-count" data-max="180">110</span></p>
+                <p><strong>שעות פתיחה:</strong> 07:00–23:00</p>
+            </div>
+            <button class="btn" onclick="toggleMap('map3')">📍 מיקום</button>
+            <button class="btn" onclick="showLot('lot3',180)">🅿️ מפת חניון</button>
+        </div>
+        <div id="map3" class="map-container">
+            <iframe src="https://www.google.com/maps?q=32.7935,35.0003&output=embed"></iframe>
+        </div>
+        <div id="lot3" class="lot-map"></div>
+    </div>
 </section>
+
+    
 
 <footer>© 2025 SmartParking Ultra | נבנה באהבה 🚗💙</footer>
 
