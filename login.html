@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>הרשמה / התחברות – SmartParking</title>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --main: #0072ff;
+      --secondary: #00c6ff;
+      --accent: #ff4081;
+      --bg: #f0f7ff;
+      --card: #ffffff;
+      --text: #333;
+    }
+    body { margin:0; font-family:"Heebo",sans-serif; background:var(--bg); color:var(--text); display:flex; justify-content:center; align-items:center; min-height:100vh; transition:0.5s; }
+    body.dark { --bg:#0d1117; --card:#161b22; --text:#e6edf3; }
+
+    .login-container { background:var(--card); padding:40px 50px; border-radius:25px; box-shadow:0 15px 40px rgba(0,0,0,0.2); width:400px; max-width:90%; text-align:center; transition:0.3s; }
+    .login-container:hover { transform:translateY(-5px); box-shadow:0 25px 50px rgba(0,0,0,0.3); }
+
+    h2{color:var(--main); margin-bottom:20px;}
+    input{width:100%; padding:12px 15px; margin:10px 0; border-radius:12px; border:2px solid var(--secondary); font-size:1rem; transition:0.3s;}
+    input:focus{outline:none; border-color:var(--accent); box-shadow:0 0 10px rgba(0,198,255,0.3);}
+    button{width:100%; padding:12px; margin:10px 0; border:none; border-radius:25px; background:linear-gradient(135deg,var(--secondary),var(--main)); color:white; font-weight:600; cursor:pointer; transition:0.3s;}
+    button:hover{background:var(--accent);}
+    .social-login{display:flex; justify-content:space-between; margin:20px 0;}
+    .social-login button{flex:1; margin:0 5px; display:flex; align-items:center; justify-content:center; font-weight:600; gap:10px;}
+    .social-login button.google{background:#db4437;}
+    .social-login button.facebook{background:#4267B2;}
+    .social-login button.twitter{background:#1DA1F2;}
+    .social-login button:hover{opacity:0.85;}
+    .toggle-link{margin-top:15px; font-size:0.9rem; color:var(--main); cursor:pointer;}
+    .toggle-link:hover{text-decoration:underline;}
+    .success{display:none; margin-top:10px; color:green; font-weight:600;}
+    .verification{display:none; margin-top:10px;}
+    .dark-mode-toggle{position:fixed; top:15px; right:15px; background:var(--main); border:none; color:white; padding:8px 14px; border-radius:15px; cursor:pointer; transition:0.3s;}
+    .dark-mode-toggle:hover{background:var(--accent);}
+  </style>
+</head>
+<body>
+<button class="dark-mode-toggle" onclick="toggleDarkMode()">🌙 מצב כהה</button>
+
+<div class="login-container">
+  <h2>SmartParking</h2>
+
+  <div id="form-container">
+    <!-- Login Form -->
+    <form id="loginForm" onsubmit="sendCode(event)">
+      <input type="email" id="loginEmail" placeholder="דוא"ל" required>
+      <button type="submit">שלח קוד אימות</button>
+      <div class="toggle-link" onclick="toggleForm()">אין לך חשבון? הרשמה</div>
+    </form>
+
+    <!-- Code Verification Form -->
+    <form id="codeForm" onsubmit="verifyCode(event)" style="display:none;">
+      <input type="text" id="codeInput" placeholder="הכנס את קוד האימות" required>
+      <button type="submit">התחבר</button>
+      <div class="verification" id="codeMessage"></div>
+    </form>
+
+    <!-- Register Form -->
+    <form id="registerForm" onsubmit="handleRegister(event)" style="display:none;">
+      <input type="text" id="registerFirstName" placeholder="שם פרטי" required>
+      <input type="text" id="registerLastName" placeholder="שם משפחה" required>
+      <input type="email" id="registerEmail" placeholder="דוא"ל" required>
+      <input type="password" id="registerPassword" placeholder="סיסמה" required>
+      <button type="submit">הרשם</button>
+      <div class="toggle-link" onclick="toggleForm()">יש לך כבר חשבון? התחבר</div>
+      <div class="success" id="registerSuccess">✅ נרשמת בהצלחה!</div>
+    </form>
+  </div>
+
+  <div class="social-login">
+    <button class="google">Google</button>
+    <button class="facebook">Facebook</button>
+    <button class="twitter">Twitter</button>
+  </div>
+</div>
+
+<script>
+  let generatedCode = "";
+
+  function toggleDarkMode() { document.body.classList.toggle("dark"); }
+
+  function toggleForm() {
+    const login = document.getElementById("loginForm");
+    const register = document.getElementById("registerForm");
+    const codeForm = document.getElementById("codeForm");
+    login.style.display = login.style.display === "none" ? "block" : "none";
+    register.style.display = register.style.display === "none" ? "block" : "none";
+    codeForm.style.display = "none";
+  }
+
+  function sendCode(e) {
+    e.preventDefault();
+    const email = document.getElementById("loginEmail").value;
+    const user = JSON.parse(localStorage.getItem(email));
+    if(!user){ alert("❌ משתמש לא קיים"); return; }
+
+    generatedCode = Math.floor(100000 + Math.random()*900000).toString();
+    alert(`קוד האימות נשלח ל-${email} (בדוגמה כאן: ${generatedCode})`);
+    document.getElementById("loginForm").style.display = "none";
+    document.getElementById("codeForm").style.display = "block";
+  }
+
+  function verifyCode(e) {
+    e.preventDefault();
+    const input = document.getElementById("codeInput").value;
+    const email = document.getElementById("loginEmail").value;
+    const user = JSON.parse(localStorage.getItem(email));
+    if(input === generatedCode && user){
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("currentUser", JSON.stringify(user));
+      alert(`✅ התחברת בהצלחה, ${user.firstName}!`);
+      updateLoginButton();
+      window.location.href = "index.html";
+    } else {
+      const msg = document.getElementById("codeMessage");
+      msg.style.display = "block";
+      msg.style.color = "red";
+      msg.textContent = "❌ הקוד שגוי, נסה שוב";
+    }
+  }
+
+  function handleRegister(e) {
+    e.preventDefault();
+    const firstName = document.getElementById("registerFirstName").value;
+    const lastName = document.getElementById("registerLastName").value;
+    const email = document.getElementById("registerEmail").value;
+    const password = document.getElementById("registerPassword").value;
+
+    if(localStorage.getItem(email)){
+      alert("❌ משתמש קיים כבר!");
+      return;
+    }
+
+    const user = { firstName, lastName, email, password };
+    localStorage.setItem(email, JSON.stringify(user));
+    document.getElementById("registerSuccess").style.display = "block";
+    setTimeout(() => {
+      document.getElementById("registerSuccess").style.display = "none";
+      toggleForm();
+    }, 2000);
+  }
+
+  function updateLoginButton(){
+    const user = JSON.parse(localStorage.getItem("currentUser"));
+    const btn = document.querySelector('#loginBtn');
+    if(btn && user){
+      btn.textContent = `${user.firstName} ${user.lastName}`;
+    }
+  }
+
+  // בדיקה אם המשתמש מחובר
+  window.onload = updateLoginButton;
+</script>
+</body>
+</html>
