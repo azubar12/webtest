@@ -433,48 +433,46 @@ function displayAllParkingsMobile() {
   }
 }
 
-// הפעלה ראשונית כשהעמוד נטען
-window.addEventListener("load", displayAllParkingsMobile);
-
-// שינוי בזמן אמת אם משנים גודל מסך
-window.addEventListener("resize", displayAllParkingsMobile);
-// --- תצוגת פלאפון עם כפתורי ניווט ---
-function displayAllParkingsMobile() {
-  const parkingList = document.getElementById("parkingList");
-  if (!parkingList || !parkings) return;
-
+    // ✅ תצוגת מובייל – כל החניונים + כפתורי ניווט
+function setupMobileView() {
+  // אם זה פלאפון
   if (window.innerWidth <= 768) {
-    parkingList.innerHTML = "";
-    Object.keys(parkings).forEach(city => {
-      parkings[city].forEach(p => {
-        const card = document.createElement("div");
-        card.className = "parking";
-        card.innerHTML = `
-          <h3>${p.name}</h3>
-          <p>עיר: <strong>${city}</strong></p>
-          <p>מקומות פנויים: <strong>${p.spots}</strong></p>
-          <div style="margin-top:10px; display:flex; gap:8px;">
-            <a href="https://www.waze.com/ul?q=${encodeURIComponent(p.name + ' ' + city)}" 
-               target="_blank" 
-               style="flex:1; text-align:center; background:#1a73e8; color:white; padding:8px; border-radius:8px; text-decoration:none; font-weight:600;">
-               🧭 נווט ב-Waze
-            </a>
-            <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.name + ' ' + city)}"
-               target="_blank"
-               style="flex:1; text-align:center; background:#34a853; color:white; padding:8px; border-radius:8px; text-decoration:none; font-weight:600;">
-               📍 Google Maps
-            </a>
-          </div>
+    document.body.classList.add("mobile-view");
+
+    // מוסיף כפתורי ניווט לכל חניון
+    document.querySelectorAll(".parking").forEach(parking => {
+      const title = parking.querySelector("h3")?.innerText || "";
+      const city = parking.dataset.city || "";
+      // נבדוק שאין כבר כפתורים
+      if (!parking.querySelector(".nav-buttons")) {
+        const div = document.createElement("div");
+        div.className = "nav-buttons";
+        div.style = "margin-top:10px; display:flex; gap:8px; justify-content:center;";
+
+        div.innerHTML = `
+          <a href="https://www.waze.com/ul?q=${encodeURIComponent(title)}"
+             target="_blank"
+             style="flex:1; text-align:center; background:#1a73e8; color:white; padding:8px; border-radius:8px; text-decoration:none; font-weight:600;">
+             🧭 נווט ב-Waze
+          </a>
+          <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(title)}"
+             target="_blank"
+             style="flex:1; text-align:center; background:#34a853; color:white; padding:8px; border-radius:8px; text-decoration:none; font-weight:600;">
+             📍 Google Maps
+          </a>
         `;
-        parkingList.appendChild(card);
-      });
+        parking.querySelector(".parking-content").appendChild(div);
+      }
     });
+  } else {
+    document.body.classList.remove("mobile-view");
   }
 }
 
-// הפעלה אוטומטית בפלאפון
-window.addEventListener("load", displayAllParkingsMobile);
-window.addEventListener("resize", displayAllParkingsMobile);
+// הפעלה כשהעמוד נפתח
+window.addEventListener("load", setupMobileView);
+// הפעלה מחדש אם גודל המסך משתנה
+window.addEventListener("resize", setupMobileView);
 
 </script>
 </body>
