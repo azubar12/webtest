@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
@@ -31,34 +30,12 @@ body.dark{
     --text:#e1e4e8;
     --shadow:rgba(0,0,0,0.5);
 }
-
-/* מצב מובייל */
-body.mobile-view{
-    font-size: 14px;
-}
-body.mobile-view header h1{
-    font-size: 2rem;
-}
-body.mobile-view .parking-container{
-    grid-template-columns: 1fr;
-    padding: 20px;
-}
-body.mobile-view .parking{
-    border-radius:15px;
-}
-body.mobile-view nav{
-    flex-direction:column;
-    align-items:flex-start;
-    padding:10px 20px;
-}
-body.mobile-view .nav-links{
-    flex-wrap:wrap;
-    gap:10px;
-}
-body.mobile-view .search-bar input{
-    width: 90%;
-    font-size:0.9rem;
-}
+body.mobile-view header h1{font-size:2rem;}
+body.mobile-view .parking-container{grid-template-columns:1fr;padding:20px;}
+body.mobile-view .parking{border-radius:15px;}
+body.mobile-view nav{flex-direction:column;align-items:flex-start;padding:10px 20px;}
+body.mobile-view .nav-links{flex-wrap:wrap;gap:10px;}
+body.mobile-view .search-bar input{width:90%;font-size:0.9rem;}
 
 nav{
     display:flex;
@@ -86,9 +63,7 @@ nav{
     border-radius:8px;
     transition:0.3s;
 }
-.nav-links a:hover{
-    background:rgba(255,255,255,0.2);
-}
+.nav-links a:hover{background:rgba(255,255,255,0.2);}
 .nav-links button{
     padding:8px 18px;
     border-radius:20px;
@@ -99,29 +74,12 @@ nav{
     color:var(--primary);
     transition:0.3s;
 }
-.nav-links button:hover{
-    background:var(--accent);
-    color:white;
-}
-header{
-    text-align:center;
-    padding:70px 20px;
-    background: linear-gradient(135deg,var(--secondary),var(--primary));
-    color:white;
-    clip-path: polygon(0 0,100% 0,100% 85%,0 100%);
-}
-header h1{
-    font-size:3rem;
-    margin-bottom:12px;
-}
-header p{
-    font-size:1.2rem;
-    opacity:0.9;
-}
-.search-bar{
-    text-align:center;
-    margin:30px auto;
-}
+.nav-links button:hover{background:var(--accent);color:white;}
+
+header{text-align:center;padding:70px 20px;background: linear-gradient(135deg,var(--secondary),var(--primary));color:white;clip-path: polygon(0 0,100% 0,100% 85%,0 100%);}
+header h1{font-size:3rem;margin-bottom:12px;}
+header p{font-size:1.2rem;opacity:0.9;}
+.search-bar{text-align:center;margin:30px auto;}
 .search-bar input{
     width:360px;
     padding:14px 22px;
@@ -131,139 +89,30 @@ header p{
     transition:0.3s;
     box-shadow:0 4px 15px rgba(0,0,0,0.08);
 }
-.search-bar input:focus{
-    outline:none;
-    border-color: var(--accent);
-    box-shadow:0 0 12px var(--accent);
-}
-.parking-container{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(360px,1fr));
-    gap:40px;
-    padding:50px 7%;
-}
-.parking{
-    background: var(--card);
-    border-radius:25px;
-    overflow:hidden;
-    box-shadow:0 15px 30px var(--shadow);
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
-    display:flex;
-    flex-direction:column;
-}
-.parking:hover{
-    transform: translateY(-10px);
-    box-shadow:0 25px 50px var(--shadow);
-}
-.image-area{
-    height:220px;
-    background-size:cover;
-    background-position:center;
-    position:relative;
-    border-bottom:4px solid var(--accent);
-}
-.overlay{
-    position:absolute;
-    top:0; left:0;
-    width:100%; height:100%;
-    background: rgba(0,0,0,0.2);
-    opacity:0;
-    transition:0.4s ease;
-}
+.search-bar input:focus{outline:none;border-color: var(--accent);box-shadow:0 0 12px var(--accent);}
+.parking-container{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:40px;padding:50px 7%;}
+.parking{background: var(--card);border-radius:25px;overflow:hidden;box-shadow:0 15px 30px var(--shadow);transition: transform 0.4s ease, box-shadow 0.4s ease;display:flex;flex-direction:column;}
+.parking:hover{transform: translateY(-10px);box-shadow:0 25px 50px var(--shadow);}
+.image-area{height:220px;background-size:cover;background-position:center;position:relative;border-bottom:4px solid var(--accent);}
+.overlay{position:absolute;top:0; left:0;width:100%; height:100%;background: rgba(0,0,0,0.2);opacity:0;transition:0.4s ease;}
 .parking:hover .overlay{opacity:1;}
-.parking-content{
-    padding:20px;
-    text-align:center;
-    flex:1;
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between;
-}
-.parking-content h3{
-    color: var(--primary);
-    font-size:1.5rem;
-    margin-bottom:15px;
-}
-.info{
-    background: rgba(0,0,0,0.05);
-    border-radius:12px;
-    padding:12px;
-    margin-bottom:20px;
-    text-align:left;
-    font-size:0.95rem;
-    line-height:1.5;
-}
-.btn{
-    background: var(--primary);
-    border:none;
-    color:white;
-    border-radius:30px;
-    padding:12px 20px;
-    margin:5px;
-    font-weight:600;
-    cursor:pointer;
-    transition:0.3s;
-}
-.btn:hover{
-    background: var(--accent);
-    transform: scale(1.05);
-}
-.map-container{
-    display:none;
-    width:100%;
-    height:280px;
-    margin-top:15px;
-    border-radius:15px;
-    overflow:hidden;
-    box-shadow:0 8px 20px var(--shadow);
-}
-iframe{
-    width:100%; height:100%; border:0;
-}
-.lot-map {
-    display: grid;
-    grid-template-rows: repeat(4, 120px);
-    gap: 25px 15px;
-    justify-content: center;
-    padding: 15px;
-    background: #3a3a3a;
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-}
-.spot {
-    width: 40px;
-    height: 70px;
-    border: 2px solid #777;
-    border-radius: 5px;
-    position: relative;
-    transition: all 0.4s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.65rem;
-    color: #fff;
-    box-shadow: inset 0 -2px 4px rgba(0,0,0,0.3);
-}
-.spot.free {background: linear-gradient(145deg,#43a047,#81c784);border-color:#2e7d32;}
-.spot.taken {background: linear-gradient(145deg,#e53935,#ef5350);border-color:#b71c1c;}
-.spot::after {
-    content:''; position: absolute; top:4px; right:4px; width:6px; height:6px; border-radius:50%;
-}
-.spot.free::after {background:#43a047; box-shadow:0 0 6px #43a047;}
-.spot.taken::after {background:#e53935; box-shadow:0 0 6px #e53935;}
-.spot:hover {transform: scale(1.1); cursor:pointer;}
-footer{
-    text-align:center;
-    background: var(--primary);
-    color:white;
-    padding:30px;
-    font-size:0.95rem;
-    margin-top:50px;
-}
-@media (max-width: 768px) {
-  .parking { padding: 16px; border-radius: 18px; font-size: 1.05rem; }
-  .parking h3 { font-size: 1.2rem; }
-}
+.parking-content{padding:20px;text-align:center;flex:1;display:flex;flex-direction:column;justify-content:space-between;}
+.parking-content h3{color: var(--primary);font-size:1.5rem;margin-bottom:15px;}
+.info{background: rgba(0,0,0,0.05);border-radius:12px;padding:12px;margin-bottom:20px;text-align:left;font-size:0.95rem;line-height:1.5;}
+.btn{background: var(--primary);border:none;color:white;border-radius:30px;padding:12px 20px;margin:5px;font-weight:600;cursor:pointer;transition:0.3s;}
+.btn:hover{background: var(--accent);transform: scale(1.05);}
+.map-container{display:none;width:100%;height:280px;margin-top:15px;border-radius:15px;overflow:hidden;box-shadow:0 8px 20px var(--shadow);}
+iframe{width:100%; height:100%; border:0;}
+.lot-map{display:grid;grid-template-rows:repeat(4,120px);gap:25px 15px;justify-content:center;padding:15px;background:#3a3a3a;border-radius:15px;box-shadow:0 5px 20px rgba(0,0,0,0.3);}
+.spot{width:40px;height:70px;border:2px solid #777;border-radius:5px;position:relative;transition:all 0.4s ease;display:flex;align-items:center;justify-content:center;font-size:0.65rem;color:#fff;box-shadow: inset 0 -2px 4px rgba(0,0,0,0.3);}
+.spot.free{background:linear-gradient(145deg,#43a047,#81c784);border-color:#2e7d32;}
+.spot.taken{background:linear-gradient(145deg,#e53935,#ef5350);border-color:#b71c1c;}
+.spot::after{content:'';position:absolute;top:4px;right:4px;width:6px;height:6px;border-radius:50%;}
+.spot.free::after{background:#43a047;box-shadow:0 0 6px #43a047;}
+.spot.taken::after{background:#e53935;box-shadow:0 0 6px #e53935;}
+.spot:hover{transform: scale(1.1);cursor:pointer;}
+footer{text-align:center;background: var(--primary);color:white;padding:30px;font-size:0.95rem;margin-top:50px;}
+@media (max-width:768px){.parking{padding:16px;border-radius:18px;}.parking h3{font-size:1.2rem;}}
 </style>
 </head>
 <body>
@@ -275,6 +124,7 @@ footer{
         <a href="hours.html">שעות פתיחה</a>
         <a href="contact.html">צור קשר</a>
         <button onclick="toggleDarkMode()">🌙</button>
+        <button onclick="toggleViewMode()">📱/💻</button>
     </div>
 </nav>
 
@@ -288,11 +138,9 @@ footer{
 </div>
 
 <section class="parking-container">
-    <!-- חניון 1 -->
-   <div class="parking" data-city="תל אביב">
-    <div class="image-area" style="background-image:url('https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1000&q=80');">
-        <div class="overlay"></div>
-    </div>
+<!-- חניון 1 -->
+<div class="parking" data-city="תל אביב">
+    <div class="image-area" style="background-image:url('https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1000&q=80');"><div class="overlay"></div></div>
     <div class="parking-content">
         <h3>חניון דיזנגוף – תל אביב</h3>
         <div class="info">
@@ -303,83 +151,79 @@ footer{
         </div>
         <button class="btn" onclick="toggleMap('map1')">📍 מיקום</button>
         <button class="btn" onclick="showLot('lot1',200)">🅿️ מפת חניון</button>
-        <!-- כפתורי ניווט תמיד -->
         <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap; justify-content:center;">
             <a href="https://www.waze.com/ul?q=חניון דיזנגוף תל אביב" target="_blank" 
-               style="flex:1; min-width:120px; text-align:center; background:#1a73e8; color:white; padding:8px; border-radius:8px; text-decoration:none; font-weight:600;">
-               🧭 נווט ב-Waze
-            </a>
-            <a href="https://www.google.com/maps/search/?api=1&query=חניון דיזנגוף תל אביב" target="_blank"
-               style="flex:1; min-width:120px; text-align:center; background:#34a853; color:white; padding:8px; border-radius:8px; text-decoration:none; font-weight:600;">
-               📍 Google Maps
-            </a>
+               style="flex:1; min-width:120px; text-align:center; background:#1a73e8; color:white; padding:8px; border-radius:8px; text-decoration:none; font-weight:600;">🧭 נווט ב-Waze</a>
+            <a href="https://www.google.com/maps/search/?api=1&query=חניון דיזנגוף תל אביב" target="_blank" 
+               style="flex:1; min-width:120px; text-align:center; background:#34a853; color:white; padding:8px; border-radius:8px; text-decoration:none; font-weight:600;">📍 Google Maps</a>
         </div>
     </div>
-    <div id="map1" class="map-container">
-        <iframe src="https://www.google.com/maps?q=32.0751,34.7748&output=embed"></iframe>
-    </div>
+    <div id="map1" class="map-container"><iframe src="https://www.google.com/maps?q=32.0751,34.7748&output=embed"></iframe></div>
     <div id="lot1" class="lot-map"></div>
 </div>
 
-
-    <!-- חניון 2 -->
-    <div class="parking" data-city="ירושלים">
-        <div class="image-area" style="background-image:url('https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=1000&q=80');">
-            <div class="overlay"></div>
-                    </div>
-        <div class="parking-content">
-            <h3>חניון ממילא – ירושלים</h3>
-            <div class="info">
-                <p><strong>עלות:</strong> ₪30 לשעה</p>
-                <p><strong>קיבולת:</strong> 150</p>
-                <p><strong>תפוסה:</strong> <span class="live-count" data-max="150">95</span></p>
-                <p><strong>שעות פתיחה:</strong> 06:00–00:00</p>
-            </div>
-            <button class="btn" onclick="toggleMap('map2')">📍 מיקום</button>
-            <button class="btn" onclick="showLot('lot2',150)">🅿️ מפת חניון</button>
+<!-- חניון 2 -->
+<div class="parking" data-city="ירושלים">
+    <div class="image-area" style="background-image:url('https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=1000&q=80');"><div class="overlay"></div></div>
+    <div class="parking-content">
+        <h3>חניון ממילא – ירושלים</h3>
+        <div class="info">
+            <p><strong>עלות:</strong> ₪30 לשעה</p>
+            <p><strong>קיבולת:</strong> 150</p>
+            <p><strong>תפוסה:</strong> <span class="live-count" data-max="150">95</span></p>
+            <p><strong>שעות פתיחה:</strong> 06:00–00:00</p>
         </div>
-        <div id="map2" class="map-container">
-            <iframe src="https://www.google.com/maps?q=31.7784,35.2227&output=embed"></iframe>
+        <button class="btn" onclick="toggleMap('map2')">📍 מיקום</button>
+        <button class="btn" onclick="showLot('lot2',150)">🅿️ מפת חניון</button>
+        <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap; justify-content:center;">
+            <a href="https://www.waze.com/ul?q=חניון ממילא ירושלים" target="_blank" 
+               style="flex:1; min-width:120px; text-align:center; background:#1a73e8; color:white; padding:8px; border-radius:8px; text-decoration:none; font-weight:600;">🧭 נווט ב-Waze</a>
+            <a href="https://www.google.com/maps/search/?api=1&query=חניון ממילא ירושלים" target="_blank" 
+               style="flex:1; min-width:120px; text-align:center; background:#34a853; color:white; padding:8px; border-radius:8px; text-decoration:none; font-weight:600;">📍 Google Maps</a>
         </div>
-        <div id="lot2" class="lot-map"></div>
     </div>
+    <div id="map2" class="map-container"><iframe src="https://www.google.com/maps?q=31.7784,35.2227&output=embed"></iframe></div>
+    <div id="lot2" class="lot-map"></div>
+</div>
 
-    <!-- חניון 3 -->
-    <div class="parking" data-city="חיפה">
-        <div class="image-area" style="background-image:url('https://images.unsplash.com/photo-1597001278256-5a5f9f77cb2b?auto=format&fit=crop&w=1000&q=80');">
-            <div class="overlay"></div>
+<!-- חניון 3 -->
+<div class="parking" data-city="חיפה">
+    <div class="image-area" style="background-image:url('https://images.unsplash.com/photo-1597001278256-5a5f9f77cb2b?auto=format&fit=crop&w=1000&q=80');"><div class="overlay"></div></div>
+    <div class="parking-content">
+        <h3>חניון גרנד קניון – חיפה</h3>
+        <div class="info">
+            <p><strong>עלות:</strong> ₪28 לשעה</p>
+            <p><strong>קיבולת:</strong> 180</p>
+            <p><strong>תפוסה:</strong> <span class="live-count" data-max="180">110</span></p>
+            <p><strong>שעות פתיחה:</strong> 07:00–23:00</p>
         </div>
-        <div class="parking-content">
-            <h3>חניון גרנד קניון – חיפה</h3>
-            <div class="info">
-                <p><strong>עלות:</strong> ₪28 לשעה</p>
-                <p><strong>קיבולת:</strong> 180</p>
-                <p><strong>תפוסה:</strong> <span class="live-count" data-max="180">110</span></p>
-                <p><strong>שעות פתיחה:</strong> 07:00–23:00</p>
-            </div>
-            <button class="btn" onclick="toggleMap('map3')">📍 מיקום</button>
-            <button class="btn" onclick="showLot('lot3',180)">🅿️ מפת חניון</button>
+        <button class="btn" onclick="toggleMap('map3')">📍 מיקום</button>
+        <button class="btn" onclick="showLot('lot3',180)">🅿️ מפת חניון</button>
+        <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap; justify-content:center;">
+            <a href="https://www.waze.com/ul?q=חניון גרנד קניון חיפה" target="_blank" 
+               style="flex:1; min-width:120px; text-align:center; background:#1a73e8; color:white; padding:8px; border-radius:8px; text-decoration:none; font-weight:600;">🧭 נווט ב-Waze</a>
+            <a href="https://www.google.com/maps/search/?api=1&query=חניון גרנד קניון חיפה" target="_blank" 
+               style="flex:1; min-width:120px; text-align:center; background:#34a853; color:white; padding:8px; border-radius:8px; text-decoration:none; font-weight:600;">📍 Google Maps</a>
         </div>
-        <div id="map3" class="map-container">
-            <iframe src="https://www.google.com/maps?q=32.7935,35.0003&output=embed"></iframe>
-        </div>
-        <div id="lot3" class="lot-map"></div>
     </div>
+    <div id="map3" class="map-container"><iframe src="https://www.google.com/maps?q=32.7935,35.0003&output=embed"></iframe></div>
+    <div id="lot3" class="lot-map"></div>
+</div>
 </section>
 
 <footer>© 2025 SmartParking Ultra | נבנה באהבה 🚗💙</footer>
 
 <script>
-// מצב לילה
 function toggleDarkMode(){document.body.classList.toggle("dark");}
-
-// הצגת/הסתרת מפת חניון
+function toggleViewMode(){
+    document.body.classList.toggle("mobile-view");
+    const isMobile = document.body.classList.contains("mobile-view");
+    alert(isMobile ? "עברת לתצוגת מובייל 📱" : "עברת לתצוגת מחשב 💻");
+}
 function toggleMap(id){
     const map=document.getElementById(id);
     map.style.display=map.style.display==="block"?"none":"block";
 }
-
-// מפת חניון פנימית
 function showLot(id,max){
     const lot=document.getElementById(id);
     lot.style.display=lot.style.display==="grid"?"none":"grid";
@@ -392,8 +236,6 @@ function showLot(id,max){
         lot.appendChild(spot);
     }
 }
-
-// עדכון מספר חניות בלייב
 setInterval(()=>{
     document.querySelectorAll(".live-count").forEach(el=>{
         const max=+el.dataset.max;
@@ -402,30 +244,12 @@ setInterval(()=>{
         el.textContent=Math.min(Math.max(0,val),max);
     });
 },2000);
-
-// חיפוש חניונים לפי עיר
 function filterParkings(){
     const term=document.getElementById("search").value.trim().toLowerCase();
     document.querySelectorAll(".parking").forEach(p=>{
         p.style.display=p.dataset.city.toLowerCase().includes(term)||term===""?"block":"none";
     });
 }
-
-// --- הצגת כל החניונים בפלאפון ---
-function enableMobileView() {
-    if(window.innerWidth <= 768){
-        document.body.classList.add("mobile-view");
-    } else {
-        document.body.classList.remove("mobile-view");
-    }
-}
-
-// הפעלה בזמן טעינת העמוד
-window.addEventListener("load", enableMobileView);
-// הפעלה בזמן שינוי גודל מסך
-window.addEventListener("resize", enableMobileView);
 </script>
 </body>
 </html>
-
-```
