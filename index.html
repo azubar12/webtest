@@ -398,6 +398,35 @@ function filterParkings(){
         p.style.display=p.dataset.city.toLowerCase().includes(term)||term===""?"block":"none";
     });
 }
+// --- תצוגת פלאפון שמציגה את כל החניונים ---
+function displayAllParkingsMobile() {
+  const parkingList = document.getElementById("parkingList");
+  if (!parkingList || !parkings) return;
+
+  // אם אנחנו על פלאפון – נציג את כל החניונים
+  if (window.innerWidth <= 768) {
+    parkingList.innerHTML = "";
+    Object.keys(parkings).forEach(city => {
+      parkings[city].forEach(p => {
+        const card = document.createElement("div");
+        card.className = "parking";
+        card.innerHTML = `
+          <h3>${p.name}</h3>
+          <p>עיר: <strong>${city}</strong></p>
+          <p>מקומות פנויים: <strong>${p.spots}</strong></p>
+        `;
+        parkingList.appendChild(card);
+      });
+    });
+  }
+}
+
+// הפעלה ראשונית כשהעמוד נטען
+window.addEventListener("load", displayAllParkingsMobile);
+
+// שינוי בזמן אמת אם משנים גודל מסך
+window.addEventListener("resize", displayAllParkingsMobile);
+
 </script>
 </body>
 </html>
