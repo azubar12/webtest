@@ -30,6 +30,35 @@ body.dark{
     --text:#e1e4e8;
     --shadow:rgba(0,0,0,0.5);
 }
+
+/* ✅ מצב תצוגת מובייל */
+body.mobile-view{
+    font-size: 14px;
+}
+body.mobile-view header h1{
+    font-size: 2rem;
+}
+body.mobile-view .parking-container{
+    grid-template-columns: 1fr;
+    padding: 20px;
+}
+body.mobile-view .parking{
+    border-radius:15px;
+}
+body.mobile-view nav{
+    flex-direction:column;
+    align-items:flex-start;
+    padding:10px 20px;
+}
+body.mobile-view .nav-links{
+    flex-wrap:wrap;
+    gap:10px;
+}
+body.mobile-view .search-bar input{
+    width: 90%;
+    font-size:0.9rem;
+}
+
 nav{
     display:flex;
     justify-content:space-between;
@@ -190,24 +219,44 @@ header p{
 iframe{
     width:100%; height:100%; border:0;
 }
-.lot-map{
-    display:none;
-    grid-template-columns: repeat(10,30px);
-    gap:6px;
-    justify-content:center;
-    padding:20px;
-    margin-top:15px;
-    border-radius:15px;
-    background: rgba(0,0,0,0.03);
+.lot-map {
+    display: grid;
+    grid-template-rows: repeat(4, 120px);
+    gap: 25px 15px;
+    justify-content: center;
+    padding: 15px;
+    background: #3a3a3a;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
 }
-.spot{
-    width:30px; height:50px;
-    border-radius:6px;
-    transition: background 0.5s ease, transform 0.3s ease;
+.spot {
+    width: 40px;
+    height: 70px;
+    border: 2px solid #777;
+    border-radius: 5px;
+    position: relative;
+    transition: all 0.4s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    color: #fff;
+    box-shadow: inset 0 -2px 4px rgba(0,0,0,0.3);
 }
-.spot.free{background: linear-gradient(145deg,#43a047,#81c784);}
-.spot.taken{background: linear-gradient(145deg,#e53935,#ef5350);}
-.spot:hover{transform: scale(1.1);}
+.spot.free {background: linear-gradient(145deg,#43a047,#81c784);border-color:#2e7d32;}
+.spot.taken {background: linear-gradient(145deg,#e53935,#ef5350);border-color:#b71c1c;}
+.spot::after {
+    content:'';
+    position: absolute;
+    top:4px;
+    right:4px;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+}
+.spot.free::after {background:#43a047; box-shadow:0 0 6px #43a047;}
+.spot.taken::after {background:#e53935; box-shadow:0 0 6px #e53935;}
+.spot:hover {transform: scale(1.1); cursor:pointer;}
 footer{
     text-align:center;
     background: var(--primary);
@@ -227,13 +276,9 @@ footer{
         <a href="hours.html">שעות פתיחה</a>
         <a href="contact.html">צור קשר</a>
         <button onclick="toggleDarkMode()">🌙</button>
+        <button onclick="toggleViewMode()">📱/💻</button> <!-- כפתור חדש -->
     </div>
 </nav>
-
-<div style="text-align:center;margin:20px;">
-    <button id="loginBtn" onclick="goToLogin()">התחבר</button>
-    <button id="logoutBtn" onclick="logout()" style="display:none;">יציאה</button>
-</div>
 
 <header>
     <h1>SmartParking Ultra</h1>
@@ -245,18 +290,14 @@ footer{
 </div>
 
 <section class="parking-container">
-    <!-- חניון 1 -->
     <div class="parking" data-city="תל אביב">
-        <div class="image-area" style="background-image:url('https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1000&q=80');">
-            <div class="overlay"></div>
-        </div>
+        <div class="image-area" style="background-image:url('https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1000&q=80');"></div>
         <div class="parking-content">
             <h3>חניון דיזנגוף – תל אביב</h3>
             <div class="info">
                 <p><strong>עלות:</strong> ₪35 לשעה</p>
                 <p><strong>קיבולת:</strong> 200</p>
                 <p><strong>תפוסה:</strong> <span class="live-count" data-max="200">120</span></p>
-                <p><strong>שעות פתיחה:</strong> 24/7</p>
             </div>
             <button class="btn" onclick="toggleMap('map1')">📍 מיקום</button>
             <button class="btn" onclick="showLot('lot1',200)">🅿️ מפת חניון</button>
@@ -266,111 +307,34 @@ footer{
         </div>
         <div id="lot1" class="lot-map"></div>
     </div>
-    <!-- חניון 2 -->
-    <div class="parking" data-city="ירושלים">
-        <div class="image-area" style="background-image:url('https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=1000&q=80');">
-            <div class="overlay"></div>
-        </div>
-        <div class="parking-content">
-            <h3>חניון ממילא – ירושלים</h3>
-            <div class="info">
-                <p><strong>עלות:</strong> ₪30 לשעה</p>
-                <p><strong>קיבולת:</strong> 150</p>
-                <p><strong>תפוסה:</strong> <span class="live-count" data-max="150">95</span></p>
-                <p><strong>שעות פתיחה:</strong> 06:00–00:00</p>
-            </div>
-            <button class="btn" onclick="toggleMap('map2')">📍 מיקום</button>
-            <button class="btn" onclick="showLot('lot2',150)">🅿️ מפת חניון</button>
-        </div>
-        <div id="map2" class="map-container">
-            <iframe src="https://www.google.com/maps?q=31.7784,35.2227&output=embed"></iframe>
-        </div>
-        <div id="lot2" class="lot-map"></div>
-    </div>
-    <!-- חניון 3 -->
-    <div class="parking" data-city="חיפה
-    <!-- חניון 3 -->
-    <div class="parking" data-city="חיפה">
-        <div class="image-area" style="background-image:url('https://images.unsplash.com/photo-1597001278256-5a5f9f77cb2b?auto=format&fit=crop&w=1000&q=80');">
-            <div class="overlay"></div>
-        </div>
-        <div class="parking-content">
-            <h3>חניון גרנד קניון – חיפה</h3>
-            <div class="info">
-                <p><strong>עלות:</strong> ₪28 לשעה</p>
-                <p><strong>קיבולת:</strong> 180</p>
-                <p><strong>תפוסה:</strong> <span class="live-count" data-max="180">110</span></p>
-                <p><strong>שעות פתיחה:</strong> 07:00–23:00</p>
-            </div>
-            <button class="btn" onclick="toggleMap('map3')">📍 מיקום</button>
-            <button class="btn" onclick="showLot('lot3',180)">🅿️ מפת חניון</button>
-        </div>
-        <div id="map3" class="map-container">
-            <iframe src="https://www.google.com/maps?q=32.7935,35.0003&output=embed"></iframe>
-        </div>
-        <div id="lot3" class="lot-map"></div>
-    </div>
 </section>
 
-<footer>
-    © 2025 SmartParking Ultra | נבנה באהבה 🚗💙
-</footer>
+<footer>© 2025 SmartParking Ultra | נבנה באהבה 🚗💙</footer>
 
 <script>
 function toggleDarkMode(){document.body.classList.toggle("dark");}
-
+function toggleViewMode(){
+    document.body.classList.toggle("mobile-view");
+    const isMobile = document.body.classList.contains("mobile-view");
+    alert(isMobile ? "עברת לתצוגת מובייל 📱" : "עברת לתצוגת מחשב 💻");
+}
 function toggleMap(id){
     const map=document.getElementById(id);
     map.style.display=map.style.display==="block"?"none":"block";
 }
-
 function showLot(id,max){
     const lot=document.getElementById(id);
     lot.style.display=lot.style.display==="grid"?"none":"grid";
     lot.innerHTML="";
-    const cols=Math.ceil(Math.sqrt(max));
-    lot.style.gridTemplateColumns=`repeat(${cols},30px)`;
+    const cols=Math.ceil(max/4);
+    lot.style.gridTemplateColumns=`repeat(${cols},40px)`;
     for(let i=0;i<max;i++){
         const spot=document.createElement("div");
         spot.classList.add("spot",Math.random()>0.4?"free":"taken");
         lot.appendChild(spot);
     }
 }
-
-function goToLogin(){window.location.href="login.html";}
-function logout(){
-    localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem("currentUser");
-    updateLoginButton();
-    alert("התנתקת בהצלחה!");
-}
-
-function updateLoginButton(){
-    const loginBtn=document.getElementById("loginBtn"); 
-    const logoutBtn=document.getElementById("logoutBtn");
-    const user=JSON.parse(localStorage.getItem("currentUser"));
-    if(user && localStorage.getItem("isLoggedIn")==="true"){
-        loginBtn.textContent=`${user.firstName} ${user.lastName}`;
-        loginBtn.disabled=true;
-        logoutBtn.style.display="inline-block";
-    }else{
-        loginBtn.textContent="התחבר";
-        loginBtn.disabled=false;
-        logoutBtn.style.display="none";
-    }
-}
-
-window.onload=updateLoginButton;
-
 setInterval(()=>{
-    document.querySelectorAll(".lot-map").forEach(map=>{
-        const spots=map.querySelectorAll(".spot");
-        if(spots.length){
-            const s=spots[Math.floor(Math.random()*spots.length)];
-            s.classList.toggle("free");
-            s.classList.toggle("taken");
-        }
-    });
     document.querySelectorAll(".live-count").forEach(el=>{
         const max=+el.dataset.max;
         let val=+el.textContent;
@@ -378,7 +342,6 @@ setInterval(()=>{
         el.textContent=Math.min(Math.max(0,val),max);
     });
 },2000);
-
 function filterParkings(){
     const term=document.getElementById("search").value.trim().toLowerCase();
     document.querySelectorAll(".parking").forEach(p=>{
@@ -386,100 +349,5 @@ function filterParkings(){
     });
 }
 </script>
-<style>
-.lot-map {
-    display: grid;
-    grid-template-rows: repeat(4, 120px); /* 4 שורות */
-    grid-auto-columns: 10px; /* רוחב כל מקום חניה */
-    gap: 25px 15px; /* row-gap 25px = שביל בין השורות, column-gap 15px בין העמודות */
-    justify-content: center;
-    align-content: start;
-    padding: 15px;
-    background: #3a3a3a;
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-}
-
-
-/* כל חניה */
-.spot {
-    width: 40px;
-    height: 70px;
-    background: #555;
-    border: 2px solid #777;
-    border-radius: 5px;
-    position: relative;
-    transition: all 0.4s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.65rem;
-    color: #fff;
-    box-shadow: inset 0 -2px 4px rgba(0,0,0,0.3);
-}
-
-.spot.free {
-    background: linear-gradient(145deg,#43a047,#81c784);
-    border-color:#2e7d32;
-}
-.spot.taken {
-    background: linear-gradient(145deg,#e53935,#ef5350);
-    border-color:#b71c1c;
-}
-
-.spot::after {
-    content:'';
-    position: absolute;
-    top:4px;
-    right:4px;
-    width:6px;
-    height:6px;
-    border-radius:50%;
-    background: #000;
-    box-shadow: 0 0 4px rgba(0,0,0,0.6);
-}
-.spot.free::after {background:#43a047; box-shadow:0 0 6px #43a047;}
-.spot.taken::after {background:#e53935; box-shadow:0 0 6px #e53935;}
-.spot:hover {transform: scale(1.1); cursor:pointer;}
-</style>
-
-<div class="lot-legend">
-    <div class="legend-item"><div class="legend-color legend-free"></div> פנוי</div>
-    <div class="legend-item"><div class="legend-color legend-taken"></div> תפוס</div>
-</div>
-
-<script>
-// יצירת מפה עם 4 שורות חניה בלבד
-function showLot(id, max){
-    const lot = document.getElementById(id);
-    lot.style.display = lot.style.display==="grid"?"none":"grid";
-    lot.innerHTML="";
-    const cols = Math.ceil(max / 4); // 4 שורות קבועות
-    lot.style.gridTemplateColumns = `repeat(${cols}, 40px)`;
-    lot.style.gridTemplateRows = `repeat(4, 75px)`; // 4 שורות
-    for(let i=0; i<max; i++){
-        const spot = document.createElement("div");
-        spot.classList.add("spot",Math.random()>0.4?"free":"taken");
-        spot.title = `מקום ${i+1}`;
-        lot.appendChild(spot);
-    }
-}
-
-// עדכון בלייב
-setInterval(()=>{
-    document.querySelectorAll(".lot-map").forEach(map=>{
-        const spots = map.querySelectorAll(".spot");
-        if(spots.length){
-            const s = spots[Math.floor(Math.random()*spots.length)];
-            s.classList.toggle("free");
-            s.classList.toggle("taken");
-        }
-    });
-    document.querySelectorAll(".live-count").forEach(el=>{
-        const max = +el.dataset.max;
-        let val = +el.textContent;
-        val += Math.random()>0.5?1:-1;
-        el.textContent = Math.min(Math.max(0,val),max);
-    });
-},2000);
-</script>
+</body>
+</html>
