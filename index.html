@@ -289,26 +289,38 @@ footer{
 
 <section class="parking-container">
     <!-- חניון 1 -->
-    <div class="parking" data-city="תל אביב">
-        <div class="image-area" style="background-image:url('https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1000&q=80');">
-            <div class="overlay"></div>
-        </div>
-        <div class="parking-content">
-            <h3>חניון דיזנגוף – תל אביב</h3>
-            <div class="info">
-                <p><strong>עלות:</strong> ₪35 לשעה</p>
-                <p><strong>קיבולת:</strong> 200</p>
-                <p><strong>תפוסה:</strong> <span class="live-count" data-max="200">120</span></p>
-                <p><strong>שעות פתיחה:</strong> 24/7</p>
-            </div>
-            <button class="btn" onclick="toggleMap('map1')">📍 מיקום</button>
-            <button class="btn" onclick="showLot('lot1',200)">🅿️ מפת חניון</button>
-        </div>
-        <div id="map1" class="map-container">
-            <iframe src="https://www.google.com/maps?q=32.0751,34.7748&output=embed"></iframe>
-        </div>
-        <div id="lot1" class="lot-map"></div>
+   <div class="parking" data-city="תל אביב">
+    <div class="image-area" style="background-image:url('https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1000&q=80');">
+        <div class="overlay"></div>
     </div>
+    <div class="parking-content">
+        <h3>חניון דיזנגוף – תל אביב</h3>
+        <div class="info">
+            <p><strong>עלות:</strong> ₪35 לשעה</p>
+            <p><strong>קיבולת:</strong> 200</p>
+            <p><strong>תפוסה:</strong> <span class="live-count" data-max="200">120</span></p>
+            <p><strong>שעות פתיחה:</strong> 24/7</p>
+        </div>
+        <button class="btn" onclick="toggleMap('map1')">📍 מיקום</button>
+        <button class="btn" onclick="showLot('lot1',200)">🅿️ מפת חניון</button>
+        <!-- כפתורי ניווט תמיד -->
+        <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap; justify-content:center;">
+            <a href="https://www.waze.com/ul?q=חניון דיזנגוף תל אביב" target="_blank" 
+               style="flex:1; min-width:120px; text-align:center; background:#1a73e8; color:white; padding:8px; border-radius:8px; text-decoration:none; font-weight:600;">
+               🧭 נווט ב-Waze
+            </a>
+            <a href="https://www.google.com/maps/search/?api=1&query=חניון דיזנגוף תל אביב" target="_blank"
+               style="flex:1; min-width:120px; text-align:center; background:#34a853; color:white; padding:8px; border-radius:8px; text-decoration:none; font-weight:600;">
+               📍 Google Maps
+            </a>
+        </div>
+    </div>
+    <div id="map1" class="map-container">
+        <iframe src="https://www.google.com/maps?q=32.0751,34.7748&output=embed"></iframe>
+    </div>
+    <div id="lot1" class="lot-map"></div>
+</div>
+
 
     <!-- חניון 2 -->
     <div class="parking" data-city="ירושלים">
