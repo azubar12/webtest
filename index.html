@@ -265,6 +265,18 @@ footer{
     font-size:0.95rem;
     margin-top:50px;
 }
+    @media (max-width: 768px) {
+  .parking {
+    padding: 16px;
+    border-radius: 18px;
+    font-size: 1.05rem;
+  }
+
+  .parking h3 {
+    font-size: 1.2rem;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -425,6 +437,43 @@ function displayAllParkingsMobile() {
 window.addEventListener("load", displayAllParkingsMobile);
 
 // שינוי בזמן אמת אם משנים גודל מסך
+window.addEventListener("resize", displayAllParkingsMobile);
+// --- תצוגת פלאפון עם כפתורי ניווט ---
+function displayAllParkingsMobile() {
+  const parkingList = document.getElementById("parkingList");
+  if (!parkingList || !parkings) return;
+
+  if (window.innerWidth <= 768) {
+    parkingList.innerHTML = "";
+    Object.keys(parkings).forEach(city => {
+      parkings[city].forEach(p => {
+        const card = document.createElement("div");
+        card.className = "parking";
+        card.innerHTML = `
+          <h3>${p.name}</h3>
+          <p>עיר: <strong>${city}</strong></p>
+          <p>מקומות פנויים: <strong>${p.spots}</strong></p>
+          <div style="margin-top:10px; display:flex; gap:8px;">
+            <a href="https://www.waze.com/ul?q=${encodeURIComponent(p.name + ' ' + city)}" 
+               target="_blank" 
+               style="flex:1; text-align:center; background:#1a73e8; color:white; padding:8px; border-radius:8px; text-decoration:none; font-weight:600;">
+               🧭 נווט ב-Waze
+            </a>
+            <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.name + ' ' + city)}"
+               target="_blank"
+               style="flex:1; text-align:center; background:#34a853; color:white; padding:8px; border-radius:8px; text-decoration:none; font-weight:600;">
+               📍 Google Maps
+            </a>
+          </div>
+        `;
+        parkingList.appendChild(card);
+      });
+    });
+  }
+}
+
+// הפעלה אוטומטית בפלאפון
+window.addEventListener("load", displayAllParkingsMobile);
 window.addEventListener("resize", displayAllParkingsMobile);
 
 </script>
